@@ -1,0 +1,30 @@
+{
+  "pages":[
+    "pages/main-music/main-music",
+    "pages/main-video/main-video"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "HYMusic",
+    "navigationBarTextStyle":"black"
+  },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/main-music/main-music",
+        "text": "音乐",
+        "iconPath": "asstes/images/tabbar/music_normal.png",
+        "selectedIconPath": "asstes/images/tabbar/music_active.png"
+      },
+      {
+        "pagePath": "pages/main-video/main-video",
+        "text": "视频",
+        "iconPath": "asstes/images/tabbar/video_normal.png",
+        "selectedIconPath": "asstes/images/tabbar/video_active.png"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}
