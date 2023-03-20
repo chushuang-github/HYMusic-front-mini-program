@@ -1,0 +1,32 @@
+/* pages/detail-video/detail-video.wxss */
+/* 可以通过page，直接设置页面的样式 */
+page {
+  height: 100vh;
+}
+
+.video {
+  width: 100%;
+}
+
+.content {
+  height: calc(100% - 460rpx);
+}
+
+.info {
+  padding: 30rpx;
+}
+
+.info .title {
+  font-weight: 700;
+}
+
+.info .desc, .info .other {
+  font-size: 24rpx;
+  margin-top: 10rpx;
+  color: #666;
+}
+
+/* 相关视频 */
+.recommend {
+  padding: 30rpx;
+}

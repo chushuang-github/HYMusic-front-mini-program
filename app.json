@@ -1,12 +1,13 @@
 {
   "pages":[
     "pages/main-music/main-music",
-    "pages/main-video/main-video"
+    "pages/main-video/main-video",
+    "pages/detail-video/detail-video"
   ],
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "HYMusic",
+    "navigationBarTitleText": "网易云音乐",
     "navigationBarTextStyle":"black"
   },
   "tabBar": {

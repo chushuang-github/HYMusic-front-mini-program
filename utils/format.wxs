@@ -1,0 +1,30 @@
+function countFormat(count) {
+  var counter = parseInt(count)
+  if (counter > 100000000) {
+    return (count / 100000000).toFixed(1) + "亿"
+  } else if (count > 10000) {
+    return (count / 10000).toFixed(1) + "万"
+  } else {
+    return count + ""
+  }
+}
+
+function padLeftZero(str) {
+  str = str.toString()
+  return ("00" + str).slice(str.length);
+}
+
+function formatDuration(duration) {
+  // 将毫秒转成秒钟
+  duration = duration / 1000
+
+  var minute = Math.floor(duration / 60)
+  var second = Math.floor(duration) % 60
+
+  return padLeftZero(minute) + ":" + padLeftZero(second)
+}
+
+module.exports = {
+  countFormat: countFormat,
+  formatDuration: formatDuration
+}

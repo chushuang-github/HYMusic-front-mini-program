@@ -1,1 +1,11 @@
 /* pages/main-video/main-video.wxss */
+.video-list {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  padding: 0rpx 10rpx;
+}
+
+.video-list .item {
+  width: 48%;
+}
