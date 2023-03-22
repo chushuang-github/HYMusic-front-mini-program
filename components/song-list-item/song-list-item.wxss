@@ -1,0 +1,44 @@
+/* components/song-list-item/index.wxss */
+.item {
+  display: inline-block;
+  width: 100%;
+}
+
+.top {
+  position: relative;
+}
+
+.top .image {
+  width: 100%;
+  border-radius: 12rpx;
+  background-size: cover;
+}
+
+.top .play-counter {
+  position: absolute;
+  right: 0;
+  bottom: 10rpx;
+  color: #fff;
+  font-size: 22rpx;
+  border-radius: 12rpx;
+  padding: 6rpx 10rpx;
+  background: rgba(0,0,0, .5);
+}
+
+.item .bottom {
+  width: 100%;
+  font-size: 26rpx;
+
+  /* 显示两行 */
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  display: -moz-box;
+  -moz-line-clamp: 2;
+  -moz-box-orient: vertical;
+  word-wrap: break-word;
+  word-break: break-all;
+  white-space: normal;
+  overflow: hidden;
+}

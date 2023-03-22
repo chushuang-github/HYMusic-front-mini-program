@@ -1,0 +1,11 @@
+<!--components/song-list/song-list.wxml-->
+<view class="menu">
+  <area-header title="{{ title }}" />
+  <scroll-view class="list" scroll-x style="width: {{ screenWidth }}px;">
+    <block wx:for="{{ songList }}" wx:key="id">
+      <view class="item">
+        <song-list-item itemData="{{ item }}" />
+      </view>
+    </block>
+  </scroll-view>
+</view>

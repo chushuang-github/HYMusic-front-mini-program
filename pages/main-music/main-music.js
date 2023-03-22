@@ -1,5 +1,5 @@
 // pages/main-music/main-music.js
-import { getBannerList } from "../../services/music"
+import { getBannerList, getSongMenuList } from "../../services/music"
 import recommendStore from "../../store/recommendStore"
 import { querySelect } from "../../utils/query-select"
 // 使用我们自定义的节流函数，或者使用underscore库里面的节流函数，都是ok的
@@ -13,12 +13,16 @@ Page({
   data: {
     bannerList: [],
     bannerHeight: 136.5,
-    recommendSongs: []
+    recommendSongs: [],
+    hotMenuList: [],
+    recommendMenuList: []
   },
 
   // 生命周期函数--监听页面加载
   onLoad() {
     this.fetchBannerList()
+    this.fetchSongMenuList()
+
     // 使用store
     recommendStore.onState("recommendSongs", (value) => {
       this.setData({
@@ -34,6 +38,20 @@ Page({
     const res = await getBannerList()
     this.setData({
       bannerList: res.banners
+    })
+  },
+
+  // 热门歌单
+  fetchSongMenuList() {
+    getSongMenuList().then(res => {
+      this.setData({
+        hotMenuList: res.playlists
+      })
+    })
+    getSongMenuList("华语").then(res => {
+      this.setData({
+        recommendMenuList: res.playlists
+      })
     })
   },
 

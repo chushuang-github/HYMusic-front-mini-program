@@ -13,3 +13,16 @@ export function getPlayListDetail(id) {
     id
   })
 }
+
+// 热门歌单
+/**
+ * cat："华语"、"古风"、"欧美"、"流行"，默认为 "全部"
+ * @param {} idx 
+ */
+export function getSongMenuList(cat = "全部", limit = 6, offset = 0) {
+  return hyRequest.get("/top/playlist", {
+    cat,
+    limit,
+    offset
+  })
+}

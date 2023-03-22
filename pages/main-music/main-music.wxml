@@ -24,6 +24,9 @@
   </view>
 </view>
 
+<song-list title="热门歌单" songList="{{ hotMenuList }}" />
+<song-list title="推荐歌单" songList="{{ recommendMenuList }}" />
+
 <view class="ranking">
   <area-header title="巅峰榜" showRight="{{ false }}" />
 </view>
