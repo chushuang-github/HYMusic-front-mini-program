@@ -1,1 +1,20 @@
 /* pages/main-music/main-music.wxss */
+page {
+  background-color: #fafafa;
+  padding: 0rpx 24rpx;
+  box-sizing: border-box;
+}
+.van-search {
+  padding: 20rpx 0rpx !important;
+}
+.van-search__content {
+  background: #fff !important;
+}
+
+.banner {
+  border-radius: 12rpx;
+  overflow: hidden;
+}
+.banner-image {
+  width: 100%;
+}

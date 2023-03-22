@@ -1,66 +1,63 @@
 // pages/main-music/main-music.js
+import { getBannerList } from "../../services/music"
+import recommendStore from "../../store/recommendStore"
+import { querySelect } from "../../utils/query-select"
+// 使用我们自定义的节流函数，或者使用underscore库里面的节流函数，都是ok的
+// import throttle from "../../utils/throttle"
+import { throttle } from "underscore"
+
+const querySelectThrottle = throttle(querySelect, 1000)
+
 Page({
-
-  /**
-   * 页面的初始数据
-   */
+  // 页面的初始数据
   data: {
-
+    bannerList: [],
+    bannerHeight: 136.5,
+    recommendSongs: []
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad(options) {
-
+  // 生命周期函数--监听页面加载
+  onLoad() {
+    this.fetchBannerList()
+    // 使用store
+    recommendStore.onState("recommendSongs", (value) => {
+      this.setData({
+        recommendSongs: value.slice(0, 6)
+      })
+    })
+    recommendStore.dispatch("fetchRecommendSongsAction")
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady() {
-
+  // 网络请求
+  // 获取轮播图
+  async fetchBannerList() {
+    const res = await getBannerList()
+    this.setData({
+      bannerList: res.banners
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow() {
-
+  // 事件处理函数
+  // 点击搜索
+  onSearchClick() {
+    wx.navigateTo({
+      url: '/pages/detail-search/detail-search',
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide() {
-
+  // 图片加载完成
+  onBannerImageLoad() {
+    querySelectThrottle(".banner-image").then(res => {
+      this.setData({
+        bannerHeight: res.height
+      })
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage() {
-
+  // 推荐歌曲更多
+  onRecommendMoreClick() {
+    wx.navigateTo({
+      url: '/pages/detail-song/detail-song',
+    })
   }
 })

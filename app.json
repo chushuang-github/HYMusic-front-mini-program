@@ -2,13 +2,19 @@
   "pages":[
     "pages/main-music/main-music",
     "pages/main-video/main-video",
-    "pages/detail-video/detail-video"
+    "pages/detail-video/detail-video",
+    "pages/detail-search/detail-search",
+    "pages/detail-song/detail-song"
   ],
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "网易云音乐",
     "navigationBarTextStyle":"black"
+  },
+  "usingComponents": {
+    "van-search": "@vant/weapp/search/index",
+    "van-icon": "@vant/weapp/icon/index"
   },
   "tabBar": {
     "list": [
@@ -26,6 +32,5 @@
       }
     ]
   },
-  "style": "v2",
   "sitemapLocation": "sitemap.json"
 }

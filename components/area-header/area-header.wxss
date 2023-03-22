@@ -1,0 +1,30 @@
+/* components/area-header/area-header.wxss */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 88rpx;
+}
+
+/* 伪类：empty，判断元素的子元素为不为空，如果为空，就给样式 */
+/* +：表示找兄弟元素，下一个兄弟元素 */
+/* 当slot子元素为空的时候，给slot的兄弟元素default的display属性设置为flex */
+.header .slot:empty + .default {
+  display: flex;
+}
+.header .title {
+  font-size: 36rpx;
+  font-weight: 700;
+}
+/* 默认给default默认内容的display属性设置为none */
+/* 当插槽内容为空的时候，在给default默认内容的display属性设置为flex */
+.header .default {
+  display: none;
+  align-items: center;
+  font-size: 28rpx;
+  color: #777;
+}
+.header .default .icon {
+  width: 50rpx;
+  height: 50rpx;
+}

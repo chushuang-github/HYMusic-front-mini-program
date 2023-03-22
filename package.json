@@ -1,0 +1,24 @@
+{
+  "name": "hymusic-front-mini-program",
+  "version": "1.0.0",
+  "description": "微信小程序 - 网易云音乐",
+  "main": ".eslintrc.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chushuang-github/HYMusic-front-mini-program.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chushuang-github/HYMusic-front-mini-program/issues"
+  },
+  "homepage": "https://github.com/chushuang-github/HYMusic-front-mini-program#readme",
+  "dependencies": {
+    "@vant/weapp": "^1.10.14",
+    "hy-event-store": "^1.2.1",
+    "underscore": "^1.13.6"
+  }
+}

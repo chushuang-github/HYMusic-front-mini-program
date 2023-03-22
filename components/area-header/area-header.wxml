@@ -1,0 +1,15 @@
+<!--components/area-header/area-header.wxml-->
+<view class="header">
+  <view class="title">{{title}}</view>
+  <view class="right" wx:if="{{showRight}}" bindtap="onMoreTab">
+    <!-- 当传入插槽的时候，就使用插槽的内容，没有插槽就使用default里面内容 -->
+    <!-- 使用css属性实现插槽和默认内容互斥 -->
+    <view class="slot">
+      <slot></slot>
+    </view>
+    <view class="default">
+      <text>{{rightText}}</text>
+      <image class="icon" src="/asstes/images/icons/arrow-right.png" />
+    </view>
+  </view>
+</view>
