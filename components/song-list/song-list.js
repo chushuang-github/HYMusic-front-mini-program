@@ -16,8 +16,16 @@ Component({
     screenWidth: 375
   },
 
+  methods: {
+    onMenuMoreClick() {
+      wx.navigateTo({
+        url: '/pages/detail-menu/detail-menu',
+      })
+    }
+  },
+
   lifetimes: {
-    created() {
+    ready() {
       this.setData({
         screenWidth: app.globalData.screenWidth
       })

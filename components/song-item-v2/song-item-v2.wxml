@@ -1,0 +1,11 @@
+<!--components/song-item-v2/song-item-v2.wxml-->
+<view class="item">
+  <view class="index app-color">{{ index }}</view>
+  <view class="info">
+    <view class="name">{{ itemData.name }}</view>
+    <view class="source">
+      <image class="icon" src="/asstes/images/icons/sq_icon.png"></image>
+      <text>{{ itemData.ar[0].name || itemData.artists[0].name }}</text>
+    </view>
+  </view>
+</view>

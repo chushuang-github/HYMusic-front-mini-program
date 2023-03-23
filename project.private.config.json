@@ -5,6 +5,18 @@
     "compileHotReLoad": true,
     "urlCheck": false
   },
-  "condition": {},
+  "condition": {
+    "miniprogram": {
+      "list": [
+        {
+          "name": "",
+          "pathName": "pages/detail-song/detail-song",
+          "query": "type=ranking&type=newRanking",
+          "launchMode": "default",
+          "scene": null
+        }
+      ]
+    }
+  },
   "libVersion": "2.18.0"
 }

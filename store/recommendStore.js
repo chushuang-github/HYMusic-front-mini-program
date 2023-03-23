@@ -3,13 +3,12 @@ import { getPlayListDetail } from "../services/music"
 
 const recommendStore = new HYEventStore({
   state: {
-    recommendSongs: []
+    recommendSongsInfo: {}
   },
   actions: {
     async fetchRecommendSongsAction(ctx) {
       const res = await getPlayListDetail(3778678)
-      const recommendSongs = res.playlist.tracks
-      ctx.recommendSongs = recommendSongs
+      ctx.recommendSongsInfo = res.playlist
     }
   }
 })

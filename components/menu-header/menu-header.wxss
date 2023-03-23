@@ -1,0 +1,98 @@
+/* components/menu-header/menu-header.wxss */
+.content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 450rpx;
+  color: #fff;
+}
+
+.content .bg-image {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.content .bg-cover {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,.5);
+  backdrop-filter: blur(5px);
+}
+
+.album {
+  display: flex;
+  margin-top: 60rpx;
+  padding: 0 50rpx;
+}
+
+.album .image {
+  width: 220rpx;
+  height: 220rpx;
+  border-radius: 16rpx;
+}
+
+.album .info {
+  position: relative;
+  height: 220rpx;
+  flex: 1;
+  margin-left: 50rpx;
+}
+
+.album .anthor {
+  margin-top: 20rpx;
+  display: flex;
+  align-items: center;
+}
+
+.album .anthor .avatar {
+  width: 50rpx;
+  height: 50rpx;
+  border-radius: 25rpx;
+}
+
+.album .anthor .nickname {
+  font-size: 24rpx;
+  margin-left: 18rpx;
+}
+
+.album .info .desc {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  margin-top: 30rpx;
+  font-size: 24rpx;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.operation {
+  display: flex;
+  justify-content: space-around;
+  padding: 30rpx;
+  margin-top: 30rpx;
+}
+
+.operation .item {
+  display: flex;
+  align-items: center;
+}
+
+.operation .item .icon {
+  width: 48rpx;
+  margin-right: 10rpx;
+}
+
+.operation .item .text {
+  font-size: 28rpx;
+}

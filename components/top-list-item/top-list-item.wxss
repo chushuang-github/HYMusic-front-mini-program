@@ -1,0 +1,57 @@
+/* components/top-list-item/top-list-item.wxss */
+.ranking {
+  display: flex;
+  justify-content: space-between;
+  background-color: #eee;
+  border-radius: 12rpx;
+  overflow: hidden;
+  margin-top: 20rpx;
+}
+
+.content {
+  padding: 24rpx;
+  overflow: hidden;
+}
+
+.content-title {
+  font-size: 34rpx;
+}
+
+.content-list {
+  font-size: 24rpx;
+}
+
+.content-list-item {
+  color: #333;
+  margin-top: 6rpx;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.content-list-item .singer {
+  color: #999;
+}
+
+.album {
+  position: relative;
+  display: flex;
+}
+
+.album .image {
+  width: 220rpx;
+  height: 220rpx;
+  background-size: cover;
+}
+
+.album .play-counter {
+  position: absolute;
+  right: 0;
+  bottom: 0rpx;
+  color: #fff;
+  font-size: 22rpx;
+  border-radius: 12rpx;
+  padding: 6rpx 10rpx;
+  background: rgba(0,0,0,.5);
+}

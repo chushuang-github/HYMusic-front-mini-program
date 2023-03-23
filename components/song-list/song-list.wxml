@@ -1,6 +1,6 @@
 <!--components/song-list/song-list.wxml-->
 <view class="menu">
-  <area-header title="{{ title }}" />
+  <area-header title="{{ title }}" bind:moreClick="onMenuMoreClick" />
   <scroll-view class="list" scroll-x style="width: {{ screenWidth }}px;">
     <block wx:for="{{ songList }}" wx:key="id">
       <view class="item">

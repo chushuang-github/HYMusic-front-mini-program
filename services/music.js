@@ -8,6 +8,7 @@ export function getBannerList() {
 }
 
 // 推荐歌曲
+// 新歌id=3779629  原创id=2884035  飙升id=19723756  热歌id=3778678
 export function getPlayListDetail(id) {
   return hyRequest.get("/playlist/detail", {
     id
@@ -25,4 +26,9 @@ export function getSongMenuList(cat = "全部", limit = 6, offset = 0) {
     limit,
     offset
   })
+}
+
+// 获取所有歌单
+export function getSongMenuTag() {
+  return hyRequest.get("/playlist/hot")
 }

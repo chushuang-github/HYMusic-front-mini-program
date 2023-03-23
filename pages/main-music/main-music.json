@@ -3,6 +3,7 @@
   "usingComponents": {
     "area-header": "/components/area-header/area-header",
     "song-item-v1": "/components/song-item-v1/song-item-v1",
-    "song-list": "/components/song-list/song-list"
+    "song-list": "/components/song-list/song-list",
+    "top-list-item": "/components/top-list-item/top-list-item"
   }
 }

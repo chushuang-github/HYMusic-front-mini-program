@@ -29,4 +29,11 @@
 
 <view class="ranking">
   <area-header title="巅峰榜" showRight="{{ false }}" />
+  <view class="ranking-list">
+    <block wx:for="{{ rankingInfos }}" wx:key="id">
+      <view>
+        <top-list-item itemData="{{ item }}" key="{{ index }}" />
+      </view>
+    </block>
+  </view>
 </view>

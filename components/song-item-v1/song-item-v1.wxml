@@ -6,6 +6,6 @@
     <view class="source">{{ itemData.ar[0].name }} · {{itemInfo.al.name}}</view>
   </view>
   <view class="arrow">
-    <van-icon name="arrow" color="#999" size="16px" />
+    <van-icon name="arrow" color="#999" size="32rpx" />
   </view>
 </view>
