@@ -1,0 +1,33 @@
+/* components/nav-bar/nav-bar.wxss */
+.nav-bar {
+  display: flex;
+  /* 导航栏高度，这里直接给44px */
+  height: 44px;
+  text-align: center;
+}
+.left, .right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 120rpx;
+}
+/* 下面几个样式是定义插槽，显示默认内容还是插槽内容 */
+.left-arrow {
+  display: none;
+}
+.left-slot:empty + .left-arrow {
+  display: block;
+}
+.center-title {
+  display: none;
+  color: #ffffff;
+}
+.center-slot:empty + .center-title {
+  display: block;
+}
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}

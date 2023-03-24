@@ -1,0 +1,23 @@
+<!--pages/music-player/music-player.wxml-->
+<!-- 1.背景 -->
+<image class="bg-image" src="{{ currentSong.al.picUrl }}" mode="aspectFill"/>
+<view class="bg-cover"></view>
+
+<!-- 2.自定义导航 -->
+<nav-bar>
+  <view slot="center" class="tab">
+    <view class="{{ currentPage === 0 ? 'active' : '' }}">歌曲</view>
+    <viw class="divider">|</viw>
+    <view class="{{ currentPage === 1 ? 'active' : '' }}">歌词</view>
+  </view>
+</nav-bar>
+
+<!-- 3.内容 -->
+<swiper 
+  class="content" 
+  style="height: {{contentHeight}}px" 
+  bindchange="handleSwiperChange"
+>
+  <swiper-item>歌曲</swiper-item>
+  <swiper-item>歌词</swiper-item>
+</swiper>

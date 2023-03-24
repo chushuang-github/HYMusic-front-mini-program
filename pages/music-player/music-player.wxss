@@ -1,0 +1,27 @@
+/* pages/music-player/music-player.wxss */
+.bg-image, .bg-cover {
+  position: fixed;
+  z-index: -1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+.bg-cover {
+  background: rgba(0, 0, 0, .3);
+  /* 毛玻璃效果，使用下面的函数，做模糊效果 */
+  backdrop-filter: blur(20px);
+}
+
+/* 自定义导航 */
+.tab {
+  display: flex;
+  font-size: 28rpx;
+  color: #999;
+}
+.tab .divider {
+  margin: 0rpx 10rpx;
+}
+.tab .active {
+  color: #ffffff;
+}

@@ -1,0 +1,27 @@
+<!--components/nav-bar/nav-bar.wxml-->
+<view class="nav">
+  <!-- 状态栏 -->
+  <view style="height: {{ statusBarHeight }}px"></view>
+  <!-- 导航栏 -->
+  <view class="nav-bar">
+    <view class="left">
+      <!-- 自定义导航左侧插槽 -->
+      <view class="left-slot">
+        <slot name="left"></slot>
+      </view>
+      <!-- 自定义导航左侧默认内容 -->
+      <view class="left-arrow">
+        <van-icon name="arrow-left" color="#ffffff" size="20" />
+      </view>
+    </view>
+
+    <view class="center">
+      <view class="center-slot">
+        <slot name="center"></slot>
+      </view>
+      <view class="center-title">{{ title }}</view>
+    </view>
+
+    <view class="right"></view>
+  </view>
+</view>

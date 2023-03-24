@@ -10,8 +10,8 @@
       "list": [
         {
           "name": "",
-          "pathName": "pages/detail-song/detail-song",
-          "query": "type=ranking&type=newRanking",
+          "pathName": "pages/music-player/music-player",
+          "query": "id=2030766928",
           "launchMode": "default",
           "scene": null
         }
