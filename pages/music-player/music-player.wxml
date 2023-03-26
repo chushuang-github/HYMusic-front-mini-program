@@ -6,18 +6,78 @@
 <!-- 2.自定义导航 -->
 <nav-bar>
   <view slot="center" class="tab">
-    <view class="{{ currentPage === 0 ? 'active' : '' }}">歌曲</view>
-    <viw class="divider">|</viw>
-    <view class="{{ currentPage === 1 ? 'active' : '' }}">歌词</view>
+    <block wx:for="{{ pageTitles }}" wx:key="*this">
+      <view 
+        class="{{ currentPage === index ? 'active' : '' }}" 
+        bindtap="onNavTabItem" 
+        data-index="{{ index }}"
+      >
+        {{ item }}
+      </view>
+      <view wx:if="{{ index !== pageTitles.length - 1 }}" class="divider">|</view>
+    </block>
   </view>
 </nav-bar>
 
 <!-- 3.内容 -->
-<swiper 
-  class="content" 
-  style="height: {{contentHeight}}px" 
+<wxs src="/utils/format.wxs" module="format"/>
+<swiper
+  style="height: {{ contentHeight }}px"
+  current="{{ currentPage }}"
   bindchange="handleSwiperChange"
 >
-  <swiper-item>歌曲</swiper-item>
-  <swiper-item>歌词</swiper-item>
+  <swiper-item class="music">
+    <view class="album">
+      <image class="image" src="{{ currentSong.al.picUrl }}" mode="widthFix"/>
+    </view>
+    <view class="info">
+      <view class="name">{{ currentSong.name }}</view>
+      <view class="singer">{{ currentSong.ar[0].name }}</view>
+    </view>
+    <view class="lyric">
+      {{ currentLyricText }}
+    </view>
+    <view class="progress">
+      <slider
+        class="slider"
+        block-size="12"
+        value="{{ sliderValue }}"
+        bindchange="handleSliderChange"
+        bindchanging="handleSliderChanging"
+      />
+      <view class="time">
+        <view class="current">{{ format.formatDuration(currentTime) }}</view>
+        <view class="duration">{{ format.formatDuration(durationTime) }}</view>
+      </view>
+    </view>
+    <view class="controls">
+      <image class="btn mode" src="/asstes/images/player/play_order.png" />
+      <image class="btn prev" src="/asstes/images/player/play_prev.png" />
+      <image 
+        class="btn play" 
+        src="/asstes/images/player/play_{{ isPlaying ? 'pause' : 'resume' }}.png"
+        bindtap="onPlayOrPause"
+      />
+      <image class="btn next" src="/asstes/images/player/play_next.png" />
+      <image class="btn list" src="/asstes/images/player/play_music.png" />
+    </view>
+  </swiper-item>
+  <swiper-item>
+    <!-- scroll-view的scroll-top属性，设置竖向滚动条的位置，用于做歌词播放滚动的效果 -->
+    <scroll-view 
+      class="lyric-list" 
+      scroll-y
+      scroll-with-animation
+      scroll-top="{{ lyricScrollTop }}"
+    >
+      <block wx:for="{{ lyricInfos }}" wx:key="index">
+        <view 
+          class="item {{ currentLyricIndex === index ? 'active' : '' }}"
+          style="padding-top: {{ index === 0 ? (contentHeight/2 - 70) : 0}}px; padding-bottom: {{index === lyricInfos.length-1 ? (contentHeight/2 + 70) : 0 }}px;"
+        >
+          {{ item.text }}
+        </view>
+      </block>
+    </scroll-view>
+  </swiper-item>
 </swiper>

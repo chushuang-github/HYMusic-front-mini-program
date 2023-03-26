@@ -25,3 +25,92 @@
 .tab .active {
   color: #ffffff;
 }
+
+/* 歌曲布局 */
+.music {
+  display: flex;
+  flex-direction: column;
+  font-size: 28rpx;
+  color: #ffffff;
+  box-sizing: border-box;
+  padding: 40rpx 60rpx;
+}
+.music .album {
+  flex: 1;
+}
+.music .album .image {
+  width: 100%;
+  border-radius: 12rpx;
+}
+.music .info .name {
+  font-size: 48rpx;
+  font-weight: 700;
+  /* 超出部分使用省略号 */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.music .info .singer {
+  margin-top: 10rpx;
+}
+.music .lyric {
+  text-align: center;
+  margin: 16rpx 0rpx;
+  /* 超出部分使用省略号 */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.music .progress {
+  margin: 12rpx 0rpx;
+}
+.music .progress .slider {
+  margin: 16rpx 8rpx 10rpx 18rpx;
+}
+.music .progress .time {
+  display: flex;
+  justify-content: space-between;
+  font-size: 24rpx;
+}
+.music .controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 16rpx 0rpx;
+}
+.music .controls .btn {
+  width: 60rpx;
+  height: 60rpx;
+}
+.music .controls .mode {
+  width: 80rpx;
+  height: 80rpx;
+}
+.music .controls .play {
+  width: 120rpx;
+  height: 120rpx;
+}
+
+/* 歌词 */
+.lyric-list {
+  text-align: center;
+  color: #aaa;
+  font-size: 28rpx;
+  height: 100%;
+  padding: 40rpx;
+  box-sizing: border-box;
+}
+/* 去除滚动条 */
+.lyric-list ::-webkit-scrollbar {
+  display: none;
+}
+.lyric-list .item {
+  line-height: 35px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.lyric-list .item.active {
+  color: #26ce8a;
+  font-size: 32rpx;
+}

@@ -1,6 +1,7 @@
 // pages/detail-song/detail-song.js
 import recommendStore from "../../store/recommendStore"
 import rankingStore from "../../store/rankingStore"
+import playerStore from "../../store/playerStore"
 import { getPlayListDetail } from "../../services/music"
 
 Page({
@@ -36,6 +37,7 @@ Page({
     }
   },
 
+  // store数据获取
   handleRanking(value) {
     this.setData({
       songInfo: value
@@ -45,10 +47,19 @@ Page({
     })
   },
 
+  // 网络请求
   async fetchMenuSongInfo(id) {
     const res = await getPlayListDetail(id)
     this.setData({
       songInfo: res.playlist
     })
+  },
+
+  // 事件监听
+  // 推荐歌曲点击 (收集播放列表，进行播放页面上一首、下一首功能实现)
+  onSongItemTap(event) {
+    const index = event.currentTarget.dataset.index
+    playerStore.setState("playSongList", this.data.songInfo.tracks)
+    playerStore.setState("playSongIndex", index)
   }
 })

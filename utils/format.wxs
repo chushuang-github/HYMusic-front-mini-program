@@ -14,6 +14,7 @@ function padLeftZero(str) {
   return ("00" + str).slice(str.length);
 }
 
+// duration：传入毫秒
 function formatDuration(duration) {
   // 将毫秒转成秒钟
   duration = duration / 1000

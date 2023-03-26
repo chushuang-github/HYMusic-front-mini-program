@@ -2,6 +2,7 @@
 import { getBannerList, getSongMenuList } from "../../services/music"
 import recommendStore from "../../store/recommendStore"
 import rankingStore from "../../store/rankingStore"
+import playerStore from "../../store/playerStore"
 import { querySelect } from "../../utils/query-select"
 // 使用我们自定义的节流函数，或者使用underscore库里面的节流函数，都是ok的
 // import throttle from "../../utils/throttle"
@@ -102,5 +103,12 @@ Page({
     wx.navigateTo({
       url: `/pages/detail-song/detail-song?type=recommend`,
     })
+  },
+
+  // 推荐歌曲点击 (收集播放列表，进行播放页面上一首、下一首功能实现)
+  onSongItemTap(event) {
+    const index = event.currentTarget.dataset.index
+    playerStore.setState("playSongList", this.data.recommendSongs)
+    playerStore.setState("playSongIndex", index)
   }
 })
