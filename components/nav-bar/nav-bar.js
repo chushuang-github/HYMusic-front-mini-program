@@ -14,5 +14,10 @@ Component({
   // 组件的初始数据
   data: {
     statusBarHeight: getApp().globalData.statusBarHeight
+  },
+  methods: {
+    onLeftClick() {
+      this.triggerEvent("leftClick")
+    }
   }
 })

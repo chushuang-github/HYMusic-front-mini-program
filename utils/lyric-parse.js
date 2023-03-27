@@ -25,8 +25,10 @@ function parseLyric(lyricString) {
     const time = minute + second + millsecond
 
     // 2.获取歌词
-    const text = lineString.replace(timeResult[0], "")
-    lyricInfos.push({ time, text })
+    let text = lineString.replace(timeResult[0], "")
+    if(text !== "") {
+      lyricInfos.push({ time, text })
+    }
   }
   return lyricInfos
 }

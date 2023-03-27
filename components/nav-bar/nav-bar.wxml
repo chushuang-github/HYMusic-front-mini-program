@@ -4,7 +4,7 @@
   <view style="height: {{ statusBarHeight }}px"></view>
   <!-- 导航栏 -->
   <view class="nav-bar">
-    <view class="left">
+    <view class="left" bindtap="onLeftClick">
       <!-- 自定义导航左侧插槽 -->
       <view class="left-slot">
         <slot name="left"></slot>

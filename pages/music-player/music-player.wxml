@@ -4,7 +4,7 @@
 <view class="bg-cover"></view>
 
 <!-- 2.自定义导航 -->
-<nav-bar>
+<nav-bar bind:leftClick="leftClick">
   <view slot="center" class="tab">
     <block wx:for="{{ pageTitles }}" wx:key="*this">
       <view 
@@ -51,14 +51,26 @@
       </view>
     </view>
     <view class="controls">
-      <image class="btn mode" src="/asstes/images/player/play_order.png" />
-      <image class="btn prev" src="/asstes/images/player/play_prev.png" />
+      <image
+        class="btn mode" 
+        src="/asstes/images/player/play_{{ playModeName[playModeIndex] }}.png"
+        bindtap="onModeTap"
+      />
+      <image 
+        class="btn prev" 
+        src="/asstes/images/player/play_prev.png"
+        bindtap="onPrevTap"
+      />
       <image 
         class="btn play" 
         src="/asstes/images/player/play_{{ isPlaying ? 'pause' : 'resume' }}.png"
         bindtap="onPlayOrPause"
       />
-      <image class="btn next" src="/asstes/images/player/play_next.png" />
+      <image
+        class="btn next" 
+        src="/asstes/images/player/play_next.png"
+        bindtap="onNextTap"
+      />
       <image class="btn list" src="/asstes/images/player/play_music.png" />
     </view>
   </swiper-item>
