@@ -37,3 +37,24 @@
     </block>
   </view>
 </view>
+
+<view class="play-bar-placeholder" wx:if="{{ currentSong.name }}"></view>
+<view class="play-bar" wx:if="{{ currentSong.name || isPlaying }}">
+  <view class="left">
+    <image 
+      class="album album-anim"
+      style="animation-play-state: {{ isPlaying ? 'running' : 'paused' }};"
+      src="{{ currentSong.al.picUrl }}"
+      bindtap="onAlbumTap"
+    />
+    <view class="name">{{ currentSong.name }}</view>
+  </view>
+  <view class="right">
+    <image 
+      class="play" 
+      src="/asstes/images/music/{{ isPlaying ? 'pause' : 'play'}}_icon.png"
+      bindtap="onPlayOrPauseBtnTap"
+    />
+    <image class="icon" src="/asstes/images/music/playlist_icon.png" />
+  </view>
+</view>

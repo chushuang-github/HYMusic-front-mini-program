@@ -1,35 +1,34 @@
 // pages/music-player/music-player.js
-import { getSongDetail, getSongLyric } from "../../services/player"
-import playerStore from "../../store/playerStore"
+import playerStore, { audioContext } from "../../store/playerStore"
 import throttle from "../../utils/throttle"
-import parseLyric from "../../utils/lyric-parse"
 
 const app = getApp()
-const audioContext = wx.createInnerAudioContext()
 
 Page({
   // 页面的初始数据
   data: {
+    // 页面本身的数据
+    keys: ["id", "currentSong", "currentTime", "durationTime", "lyricInfos", "currentLyricText", "currentLyricIndex", "isPlaying", "playModeIndex", "playSongList", "playSongIndex"],
     pageTitles: ["歌曲", "歌词"],
-    id: 0,
     currentPage: 0,
     contentHeight: 0,
-    currentSong: {},  // 歌曲信息
-    lyricInfos: [],   // 歌词
-    currentLyricText: "",  // 当前播放的歌词
-    currentLyricIndex: 0,  // 当前播放歌词的索引
-    lyricScrollTop: 0,     // 歌词滚动距离
     sliderValue: 0,   // 滑块位置
     isSliderChanging: false,     // 进度条是否可以改变
-    currentTime: 0,    // 歌曲播放时间
-    durationTime: 0,   // 歌曲播放的总时间
-    isPlaying: true,   // 音乐是播放还是暂停
+    lyricScrollTop: 0,     // 歌词滚动距离
 
+    // 歌曲播放需要的数据
     playSongIndex: 0,  // 当前播放列表的索引
     playSongList: [],  // 播放列表
-    isFirstPlay: true, // 歌曲是否是第一次播放
-
+    id: 0,
+    currentSong: {},  // 歌曲信息
+    currentTime: 0,    // 歌曲播放时间
+    durationTime: 0,   // 歌曲播放的总时间
+    lyricInfos: [],   // 歌词
+    currentLyricText: "",   // 当前播放的歌词
+    currentLyricIndex: -1,  // 当前播放歌词的索引
+    isPlaying: true,   // 音乐是播放还是暂停
     playModeIndex: 0,  // 0顺序播放，1单曲循环，2随机播放
+
     playModeName: ["order", "repeat", "random"]
   },
 
@@ -40,98 +39,58 @@ Page({
     const statusBarHeight = app.globalData.statusBarHeight
     this.setData({ contentHeight: screenHeight - statusBarHeight - 44 })
 
-    const id = options.id
     // 根据id播放歌曲
-    this.setupPlaySong(id)
+    const id = options.id
+    if(id) {
+      playerStore.dispatch("playMusicWithSongIdAction", id)
+    }
 
-    // 获取store共享数据 (做上一首、下一首需要的音乐列表)
-    playerStore.onStates(["playSongList", "playSongIndex"], this.getPlaySongListHandler)
+    // 获取store共享数据
+    playerStore.onStates(this.data.keys, this.getPlayerInfosHandler)
   },
 
   onUnload() {
-    playerStore.offStates(["playSongList", "playSongIndex"], this.getPlaySongListHandler)
+    playerStore.offStates(this.data.keys, this.getPlayerInfosHandler)
   },
 
-  updateProgress() {
-    const currentTime = audioContext.currentTime * 1000
+  updateProgress: throttle(function(currentTime) {
+    if(this.data.isSliderChanging) return
     const sliderValue = currentTime / this.data.durationTime * 100
-    this.setData({ 
-      sliderValue, 
-      currentTime 
-    })
-  },
+    this.setData({ sliderValue, currentTime })
+  }, 500, { leading: false, trailing: false }),
 
-  // 播放歌曲的逻辑
-  setupPlaySong(id) {
-    this.setData({ id })
-    // 获取歌曲详情
-    getSongDetail(this.data.id).then(res => {
-      this.setData({
-        currentSong: res.songs[0],
-        durationTime: res.songs[0].dt
-      })
-    })
-    // 获取歌词信息
-    getSongLyric(this.data.id).then(res => {
-      const lrcString = res.lrc.lyric
-      const lyricInfos = parseLyric(lrcString)
+  // store仓库数据获取：获取歌曲数据
+  getPlayerInfosHandler({ id, currentSong, currentTime, durationTime, lyricInfos, currentLyricText, currentLyricIndex, isPlaying, playModeIndex, playSongList, playSongIndex }) {
+    if(id !== undefined) {
+      this.setData({ id })
+    }
+    if(currentSong) {
+      this.setData({ currentSong })
+    }
+    if(currentTime !== undefined) {
+      this.updateProgress(currentTime)
+    }
+    if(durationTime !== undefined) {
+      this.setData({ durationTime })
+    }
+    if(lyricInfos) {
       this.setData({ lyricInfos })
-    })
-
-    // 播放当前的歌曲
-    audioContext.stop()  // 每次播放歌曲之前，停止播放当前的歌曲
-    audioContext.src = `https://music.163.com/song/media/outer/url?id=${id}.mp3`
-    audioContext.autoplay = true
-
-    if(this.data.isFirstPlay) {
-      this.data.isFirstPlay = false
-      // 音乐资源准备好了，播放音乐
-      audioContext.onCanplay(() => {
-        audioContext.play()
-      })
-      // 音乐资源等待加载的过程中，暂停播放
-      audioContext.onWaiting(() => {
-        audioContext.pause()
-      })
-      // 监听歌曲播放完毕，自动播放下一首音乐
-      audioContext.onEnded(() => {
-        // 单曲循环，结束后不需要调用下面的切换下一首音乐的方法
-        if(audioContext.loop) return
-        // 切换下一首歌曲
-        this.changeNewSong(true)
-      })
-      // 监听音频播放进度更新事件
-      // onTimeUpdate回调函数更新频繁，更新时间和滑块，使用节流函数
-      const throttleUpdateProgress = throttle(this.updateProgress, 500, { leading: false, trailing: false })
-      audioContext.onTimeUpdate(() => {
-        if(!this.data.isSliderChanging) {
-          throttleUpdateProgress()
-        }
-        // 匹配歌词
-        let i = 0
-        for(i; i < this.data.lyricInfos.length; i++) {
-          const info = this.data.lyricInfos[i]
-          if(info.time > audioContext.currentTime * 1000) {
-            break
-          }
-        }
-        const currentIndex = i - 1
-        // 歌词索引发生变化的时候，重新设置歌词
-        if(this.data.currentLyricIndex !== currentIndex) {
-          const currentLyricInfo = this.data.lyricInfos[currentIndex]
-          this.setData({
-            currentLyricText: currentLyricInfo.text,
-            currentLyricIndex: currentIndex,
-            // 歌词索引发生变化的时候，歌词向上滚动的距离，35是每一行歌词的高度
-            lyricScrollTop: currentIndex * 35
-          })
-        }
+    }
+    if(currentLyricText) {
+      this.setData({ currentLyricText })
+    }
+    if(currentLyricIndex !== undefined) {
+      this.setData({ 
+        currentLyricIndex,
+        lyricScrollTop: currentLyricIndex * 35
       })
     }
-  },
-
-  // store数据获取
-  getPlaySongListHandler({ playSongList, playSongIndex }) {
+    if(isPlaying !== undefined) {
+      this.setData({ isPlaying })
+    }
+    if(playModeIndex !== undefined) {
+      this.setData({ playModeIndex })
+    }
     if(playSongList) {
       this.setData({ playSongList })
     }
@@ -168,9 +127,9 @@ Page({
     this.setData({ 
       currentTime, 
       sliderValue: value,
-      isSliderChanging: false,
-      isPlaying: true
+      isSliderChanging: false
     })
+    playerStore.setState("isPlaying", true)
   },
 
   // 拖动进度条：拖动的过程中，音乐继续沿着当前时间播放，松开鼠标，音乐跳转到对应的时间播放
@@ -189,76 +148,21 @@ Page({
 
   // 音乐播放/暂停
   onPlayOrPause() {
-    // 当前音乐是否暂停或停止状态（只读）
-    if(!audioContext.paused) {
-      audioContext.pause()
-      this.setData({ isPlaying: false })
-    }else {
-      audioContext.play()
-      this.setData({ isPlaying: true })
-    }
-  },
-
-  // 上一首、下一首
-  changeNewSong(isNext = true) {
-    let index = this.data.playSongIndex
-    let length = this.data.playSongList.length
-
-    // 计算索引
-    // 单曲循环点击下一首，上一首，也是正常切换的，单曲循环只有在音乐自动播放结束的时候，进行单曲循环
-    switch(this.data.playModeIndex) {
-      case 1:  // 单曲循环
-      case 0:  // 顺序播放
-        index = isNext ? index + 1 : index - 1
-        if(index === -1) index = length - 1
-        if(index === length) index = 0
-        break
-      case 2:  // 随机播放
-        index = Math.floor(Math.random() * length)
-        break
-    }
-
-    // 获取要播放的歌曲
-    const newSong = this.data.playSongList[index]
-    // 保存最新的索引值到store中
-    playerStore.setState("playSongIndex", index)
-
-    // 切换歌曲，数据初始化
-    this.setData({
-      currentSong: {},
-      sliderValue: 0,
-      currentTime: 0,
-      durationTime: 0,
-      currentLyricText: "",
-      isPlaying: true
-    })
-    // 开始播放新的歌曲
-    this.setupPlaySong(newSong.id)
-  },
-  // 上一首
-  onPrevTap() {
-    this.changeNewSong(false)
-  },
-  // 下一首
-  onNextTap() {
-    this.changeNewSong(true)
+    playerStore.dispatch("changeMusicStatusAction")
   },
 
   // 播放模式切换
   onModeTap() {
-    let modeIndex = this.data.playModeIndex
-    modeIndex = modeIndex + 1
-    if(modeIndex === 3) modeIndex = 0
+    playerStore.dispatch("changePlayModeAction")
+  },
 
-    // 设置是否单曲循环
-    if(modeIndex === 1) {
-      audioContext.loop = true
-    }else {
-      audioContext.loop = false
-    }
+  // 上一首
+  onPrevTap() {
+    playerStore.dispatch("playNewMusicAction", false)
+  },
 
-    this.setData({
-      playModeIndex: modeIndex
-    })
+  // 下一首
+  onNextTap() {
+    playerStore.dispatch("playNewMusicAction", true)
   }
 })

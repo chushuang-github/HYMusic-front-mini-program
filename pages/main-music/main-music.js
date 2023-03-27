@@ -18,7 +18,9 @@ Page({
     recommendSongs: [],
     hotMenuList: [],
     recommendMenuList: [],
-    rankingInfos: {}
+    rankingInfos: {},
+    currentSong: {},  // 当前正在播放的歌曲信息
+    isPlaying: false  // 歌曲是否在播放
   },
 
   // 生命周期函数--监听页面加载
@@ -33,6 +35,8 @@ Page({
     rankingStore.onState("upRanking", this.getRankingHandle("upRanking"))
     recommendStore.dispatch("fetchRecommendSongsAction")
     rankingStore.dispatch("fetchRankingDataAction")
+
+    playerStore.onStates(["currentSong", "isPlaying"], this.handlePlayInfos)
   },
 
   onUnload() {
@@ -40,6 +44,8 @@ Page({
     rankingStore.offState("newRanking", this.getRankingHandle("newRanking"))
     rankingStore.offState("originRanking", this.getRankingHandle("originRanking"))
     rankingStore.offState("upRanking", this.getRankingHandle("upRanking"))
+
+    playerStore.offStates(["currentSong", "isPlaying"], this.handlePlayInfos)
   },
 
   // 从store获取数据
@@ -55,6 +61,15 @@ Page({
       this.setData({
         rankingInfos: { ...this.data.rankingInfos, [ranking]: value }
       })
+    }
+  },
+
+  handlePlayInfos({ currentSong, isPlaying }) {
+    if(currentSong) {
+      this.setData({ currentSong })
+    }
+    if(isPlaying !== undefined) {
+      this.setData({ isPlaying })
     }
   },
 
@@ -110,5 +125,16 @@ Page({
     const index = event.currentTarget.dataset.index
     playerStore.setState("playSongList", this.data.recommendSongs)
     playerStore.setState("playSongIndex", index)
+  },
+
+  // 播放、暂停
+  onPlayOrPauseBtnTap() {
+    playerStore.dispatch("changeMusicStatusAction")
+  },
+
+  onAlbumTap() {
+    wx.navigateTo({
+      url: '/pages/music-player/music-player',
+    })
   }
 })

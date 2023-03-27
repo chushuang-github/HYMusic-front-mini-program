@@ -18,3 +18,57 @@ page {
 .banner-image {
   width: 100%;
 }
+
+.play-bar-placeholder {
+  height: 50px;
+}
+.play-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 44px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0px 8px;
+  box-shadow: 0px -1px 5px rgba(0, 0, 0, .1);
+  background: #fafafa;
+}
+.play-bar .left, .play-bar .right {
+  display: flex;
+  align-items: center;
+}
+.play-bar .left .album {
+  position: relative;
+  top: -8px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+}
+.play-bar .left .name {
+  font-size: 14px;
+  margin-left: 10rpx;
+}
+.play-bar .right .icon {
+  width: 30px;
+  height: 30px;
+}
+.play-bar .right .play {
+  width: 25px;
+  height: 25px;
+  margin-right: 10rpx;
+}
+/* album动画 */
+@keyframes albumRotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.album-anim {
+  animation: albumRotate 16s linear infinite;
+}
