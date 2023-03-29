@@ -2,14 +2,18 @@
 import recommendStore from "../../store/recommendStore"
 import rankingStore from "../../store/rankingStore"
 import playerStore from "../../store/playerStore"
+import menuStore from "../../store/menuStore"
 import { getPlayListDetail } from "../../services/music"
+
+const db = wx.cloud.database()
 
 Page({
   // 页面的初始数据
   data: {
     type: "ranking",
     key: "newRanking",
-    songInfo: {}
+    songInfo: {},
+    menuList: []
   },
 
   // 生命周期函数--监听页面加载
@@ -26,7 +30,17 @@ Page({
     }else if(type === "menu") {
       const id = options.id
       this.fetchMenuSongInfo(id)
+    }else if(type === "profile") {
+      const tabname = options.tabname
+      const title = options.title
+      this.handleProfileTabInfos(tabname, title)
+    }else if(type === "music") {
+      const _id = options.id
+      this.handleMusic(_id)
     }
+
+    // 歌单数据
+    menuStore.onState("menuList", this.handleMenuList)
   },
 
   onUnload() {
@@ -35,6 +49,7 @@ Page({
     }else if(this.data.type === "recommend") {
       recommendStore.offState(this.data.key, this.handleRanking)
     }
+    menuStore.offState("menuList", this.handleMenuList)
   },
 
   // store数据获取
@@ -47,11 +62,39 @@ Page({
     })
   },
 
+  handleMenuList(value) {
+    this.setData({ menuList: value })
+  },
+
   // 网络请求
   async fetchMenuSongInfo(id) {
     const res = await getPlayListDetail(id)
     this.setData({
       songInfo: res.playlist
+    })
+  },
+
+  async handleProfileTabInfos(tabname, title) {
+    // 动态获取集合
+    const collection = db.collection(`c_${tabname}`)
+    // 查询数据
+    const res = await collection.get()
+    this.setData({
+      songInfo: {
+        name: title,
+        tracks: res.data
+      }
+    })
+  },
+
+  async handleMusic(_id) {
+    const collection = db.collection('c_menu')
+    const res = await collection.doc(_id).get()
+    this.setData({
+      songInfo: {
+        name: res.data.name,
+        tracks: res.data.songList
+      }
     })
   },
 

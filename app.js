@@ -15,6 +15,11 @@ App({
         }
       }
     })
+
+    // 云开发能力初始化
+    wx.cloud.init({
+      env: 'chushuang-7gaotsbg85f541e3'  // 云开发环境id
+    })
   },
   globalData: {
     screenWidth: 375,

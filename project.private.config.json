@@ -10,8 +10,8 @@
       "list": [
         {
           "name": "",
-          "pathName": "pages/music-player/music-player",
-          "query": "id=2030766928",
+          "pathName": "pages/main-profile/main-profile",
+          "query": "",
           "launchMode": "default",
           "scene": null
         }

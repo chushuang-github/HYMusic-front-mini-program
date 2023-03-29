@@ -32,3 +32,9 @@
   height: 22rpx;
   margin-right: 10rpx;
 }
+
+.more-icon {
+  color: #aaa;
+  margin-right: 20rpx;
+  font-size: 40rpx;
+}

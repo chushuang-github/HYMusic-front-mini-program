@@ -2,6 +2,7 @@
   "pages": [
     "pages/main-music/main-music",
     "pages/main-video/main-video",
+    "pages/main-profile/main-profile",
     "pages/detail-video/detail-video",
     "pages/detail-search/detail-search",
     "pages/detail-song/detail-song",
@@ -16,7 +17,8 @@
   },
   "usingComponents": {
     "van-search": "@vant/weapp/search/index",
-    "van-icon": "@vant/weapp/icon/index"
+    "van-icon": "@vant/weapp/icon/index",
+    "van-dialog": "@vant/weapp/dialog/index"
   },
   "tabBar": {
     "list": [
@@ -31,6 +33,12 @@
         "text": "视频",
         "iconPath": "asstes/images/tabbar/video_normal.png",
         "selectedIconPath": "asstes/images/tabbar/video_active.png"
+      },
+      {
+        "pagePath": "pages/main-profile/main-profile",
+        "text": "我的",
+        "iconPath": "asstes/images/tabbar/profile_normal.png",
+        "selectedIconPath": "asstes/images/tabbar/profile_active.png"
       }
     ]
   },

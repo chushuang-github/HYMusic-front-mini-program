@@ -1,0 +1,57 @@
+/* pages/main-profile/main-profile.wxss */
+page {
+  padding: 30rpx;
+  box-sizing: border-box;
+  background: #f3f3f3;
+}
+.section {
+  background: #fff;
+  border-radius: 10rpx;
+  padding: 30rpx;
+  margin-bottom: 30rpx;
+}
+
+/* 用户信息 */
+.userinfo {
+  display: flex;
+  align-items: center;
+}
+.userinfo .avatar {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+}
+.userinfo .nickname {
+  margin-left: 20rpx;
+  font-size: 30rpx;
+}
+
+/* tabs */
+.tabs {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+}
+.tabs .item .name {
+  font-size: 26rpx;
+  margin-top: 10rpx;
+}
+
+/* 歌单 */
+.mine-menu .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #888;
+  font-size: 26rpx;
+}
+.dialog .input {
+  border: 1px solid #eee;
+  border-radius: 6rpx;
+  height: 70rpx;
+  line-height: 70rpx;
+  padding: 0rpx 16rpx;
+  margin: 30rpx;
+  font-size: 28rpx;
+}

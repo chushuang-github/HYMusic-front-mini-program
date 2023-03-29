@@ -166,7 +166,7 @@ Page({
     const currentTime = this.data.durationTime * (value / 100)
     // 3.音乐播放到对应位置，使用seek方法，跳转到指定的时间(单位秒)
     audioContext.seek(currentTime / 1000)
-    this.setData({ 
+    this.setData({
       currentTime, 
       sliderValue: value,
       isSliderChanging: false,

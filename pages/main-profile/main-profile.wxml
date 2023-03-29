@@ -1,0 +1,51 @@
+<!--pages/main-profile/main-profile.wxml-->
+<!-- 1.头像和名称 -->
+<view class="section userinfo" bindtap="onUserInfoTap">
+  <image class="avatar" src="{{ isLogin ? userInfo.avatarUrl : '/asstes/images/profile/avatar.webp' }}" />
+  <view class="nickname">{{ isLogin ? userInfo.nickName : '未登录' }}</view>
+</view>
+
+<!-- 2.tabs的选项 -->
+<view class="section tabs">
+  <block wx:for="{{ tabs }}" wx:key="type">
+    <view class="item" bindtap="onTabItem" data-item="{{ item }}">
+      <van-icon name="{{ item.icon }}" color="#26ce8a" size="50rpx" />
+      <view class="name">{{ item.name }}</view>
+    </view>
+  </block>
+</view>
+
+<!-- 3.我的歌单 -->
+<view class="mine-menu">
+  <area-header title="我的歌单" showRight="{{ false }}" />
+  <view class="section content">
+    <view class="header">
+      <view class="title">创建歌单</view>
+      <van-icon name="plus" bindtap="onPlusTap" />
+    </view>
+    <view class="list">
+      <block wx:for="{{ menuList }}" wx:key="name">
+        <menu-item itemData="{{ item }}" bindtap="onMenuItem" data-item="{{ item }}" />
+      </block>
+    </view>
+  </view>
+</view>
+
+<van-dialog
+  class="dialog"
+  use-slot
+  title="创建歌单"
+  show="{{ isShowDialog }}"
+  show-cancel-button
+  bind:confirm="onConfirm"
+>
+  <!-- 使用 model:value 实现数据的双向绑定 -->
+  <!-- 默认请求下面使用 model:value 数据双向绑定，控制器会有一个警告-->
+  <!-- 写上 bindinput 监听事件，这个事件里面什么都不做，可以消除警告 -->
+  <input 
+    class="input" 
+    placeholder="请输入歌单名称" 
+    model:value="{{ menuName }}"
+    bindinput="onInputChange"
+  />
+</van-dialog>

@@ -8,4 +8,6 @@
       <text>{{ itemData.ar[0].name || itemData.artists[0].name }}</text>
     </view>
   </view>
+  <!-- catchtap监听点击事件，将取消冒泡 -->
+  <van-icon name="more-o" class="more-icon" catchtap="onMoreIconTap" />
 </view>

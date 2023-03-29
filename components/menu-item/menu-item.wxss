@@ -1,0 +1,20 @@
+/* components/menu-item/menu-item.wxss */
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30rpx;
+  font-size: 24rpx;
+}
+.item .icon {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 8rpx;
+}
+.item .info {
+  flex: 1;
+  margin-left: 20rpx;
+}
+.item .info .name {
+  font-size: 28rpx;
+}
